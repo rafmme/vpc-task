@@ -1,5 +1,7 @@
-# gcc coverage testing tool files
-
-*.gcno
-*.gcda
-*.gcov
+.env
+*.retry
+.terraform
+*.tfstate
+*.tfstate.backup
+tfplan
+*.info

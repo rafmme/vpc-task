@@ -1,0 +1,58 @@
+---
+- hosts: all
+  become: true
+  become_method: sudo
+  remote_user: ubuntu
+
+  # Variables declartion for the playbook file
+  vars:
+    DB_NAME: haven_db
+    DB_USER: postgres
+
+  tasks:
+    # Update the Cache
+    - name: Update cache
+      apt:
+        update_cache: yes
+
+    - name: Ensure bash, OpenSSl, and libssl are the latest versions
+      apt: name={{ item }} update_cache=true state=latest
+      with_items:
+        - bash
+        - openssl
+        - libssl-dev
+        - libssl-doc
+      tags: packages
+
+    - name: Install PostgreSQL
+      apt: name={{ item }} update_cache=true state=installed
+      with_items:
+        - postgresql
+        - postgresql-contrib
+        - libpq-dev
+        - python-psycopg2
+      tags: packages
+
+    - name: Ensure the PostgreSQL service is running
+      service: name=postgresql state=started enabled=yes
+
+    - name: Edit postgresql.conf file
+      shell: |
+        echo "listen_addresses = '*'" >> /etc/postgresql/10/main/postgresql.conf
+        systemctl restart postgresql
+    
+    - name: Edit pg_hba.conf file
+      shell: |
+        echo "hostnossl  all  all  0.0.0.0/0  trust" >> /etc/postgresql/10/main/pg_hba.conf
+        systemctl restart postgresql
+
+    - name: create the "{{ DB_NAME }}" db
+      postgresql_db:
+        name: "{{ DB_NAME }}"
+        owner: "{{ DB_USER }}"
+        template: template0
+        encoding: UTF8
+        lc_collate: 'en_US.UTF-8'
+        lc_ctype: 'en_US.UTF-8'
+      become_user: postgres
+
