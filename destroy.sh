@@ -7,6 +7,8 @@ BLUE=`tput setaf 2`
 GREEN=`tput setaf 4`
 RESET=`tput sgr0`
 
+source .env
+
 # a function to display a message of what action is going on
 function display_message() {
     echo "        "
@@ -29,7 +31,7 @@ function destroy() {
     cd terraform
 
     # terraform command to start the destruction
-    terraform destroy -input=false
+    terraform destroy -auto-approve
     display_success_message "DONE"
 }
 

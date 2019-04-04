@@ -15,6 +15,7 @@
       apt:
         update_cache: yes
 
+    # Update packages to latest version
     - name: Ensure bash, OpenSSl, and libssl are the latest versions
       apt: name={{ item }} update_cache=true state=latest
       with_items:
@@ -24,6 +25,7 @@
         - libssl-doc
       tags: packages
 
+    # Installation of Postgresql  
     - name: Install PostgreSQL
       apt: name={{ item }} update_cache=true state=installed
       with_items:
@@ -33,19 +35,23 @@
         - python-psycopg2
       tags: packages
 
+    # Start postgresql db server
     - name: Ensure the PostgreSQL service is running
       service: name=postgresql state=started enabled=yes
 
+    # Modify postgresql config file to remote connection
     - name: Edit postgresql.conf file
       shell: |
-        echo "listen_addresses = '*'" >> /etc/postgresql/10/main/postgresql.conf
+        sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/gi" /etc/postgresql/10/main/postgresql.conf
         systemctl restart postgresql
-    
+
+    # Modify pg_hba config file to allow no ssl connection
     - name: Edit pg_hba.conf file
       shell: |
         echo "hostnossl  all  all  0.0.0.0/0  trust" >> /etc/postgresql/10/main/pg_hba.conf
         systemctl restart postgresql
 
+    # Create database with name haven_db
     - name: create the "{{ DB_NAME }}" db
       postgresql_db:
         name: "{{ DB_NAME }}"

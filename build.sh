@@ -28,10 +28,8 @@ function display_success_message() {
 function build_ami_image() {
   display_message $BLUE "BUILDING IMAGES"
 
-  # packer command to start the building of the AMIs
-  packer build packer_db.json
-  packer build packer_backend.json
-  packer build packer_frontend.json
+  # packer command to start the building of the AMI
+  packer build packer.json
 
   # conditional statement to check if the command above failed
   if [ $? -gt 0 ]; then

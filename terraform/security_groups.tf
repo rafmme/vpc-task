@@ -1,3 +1,4 @@
+# the security group for the frontend Instance that will be created
 resource "aws_security_group" "frontend-sg" {
   name        = "frontend-sg"
   description = "Security group for the Frontend Instance"
@@ -37,6 +38,8 @@ resource "aws_security_group" "frontend-sg" {
   }
 }
 
+
+# the security group for the DB Instance that will be created
 resource "aws_security_group" "db-sg" {
   name        = "db-sg"
   description = "Security group for the Database Instance"
@@ -70,6 +73,8 @@ resource "aws_security_group" "db-sg" {
   }
 }
 
+
+# the security group for the NAT Instance and Bastion host that will be created
 resource "aws_security_group" "bastion-nat-sg" {
   name        = "bastion-nat-sg"
   description = "Security group for the Bastion Host & NAT Instance"
@@ -96,6 +101,8 @@ resource "aws_security_group" "bastion-nat-sg" {
   }
 }
 
+
+# the security group for the API Instance that will be created
 resource "aws_security_group" "api-backend-sg" {
   name        = "api-backend-sg"
   description = "Security group for the API Server Instance"

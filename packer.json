@@ -2,7 +2,8 @@
     "variables": {
         "aws_access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
         "aws_secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
-        "region": "{{env `REGION`}}"
+        "region": "{{env `REGION`}}",
+        "ami_name": "{{env `DB_AMI_NAME`}}"
     },
     "builders": [{
         "type": "amazon-ebs",
@@ -20,7 +21,7 @@
         },
         "instance_type": "t2.micro",
         "ssh_username": "ubuntu",
-        "ami_name": "api_ami_{{timestamp}}"
+        "ami_name": "{{user `ami_name`}}"
     }],
     "provisioners": [{
             "type": "shell",
@@ -28,7 +29,7 @@
         },
         {
             "type": "ansible",
-            "playbook_file": "api_playbook.yml"
+            "playbook_file": "playbook.yml"
         }
     ]
 }

@@ -1,5 +1,6 @@
+# The AWS instance resource for creating the frontend instance inside the public subnet within the VPC
 resource "aws_instance" "frontend" {
-  ami = "${data.aws_ami.frontend-image.id}"
+  ami = "${var.frontend-ami-id}"
   availability_zone = "${var.aws_availabilty_zone}"
   instance_type = "${var.instance_type}"
   key_name = "${var.keyPairName}"
@@ -12,8 +13,10 @@ resource "aws_instance" "frontend" {
   }
 }
 
+
+# The AWS instance resource for creating the Bastion host inside the public subnet within the VPC
 resource "aws_instance" "bastion-host" {
-  ami = "${data.aws_ami.bastion-ami-image.id}"
+  ami = "${var.bastion-image-id}"
   availability_zone = "${var.aws_availabilty_zone}"
   instance_type = "${var.instance_type}"
   key_name = "${var.keyPairName}"
@@ -26,8 +29,10 @@ resource "aws_instance" "bastion-host" {
   }
 }
 
+
+# The AWS instance resource for creating the NAT instance inside the public subnet within the VPC
 resource "aws_instance" "nat-instance" {
-  ami = "${data.aws_ami.nat-ami-image.id}"
+  ami = "${var.nat-instance-image-id}"
   availability_zone = "${var.aws_availabilty_zone}"
   instance_type = "${var.instance_type}"
   key_name = "${var.keyPairName}"
@@ -41,8 +46,10 @@ resource "aws_instance" "nat-instance" {
   }
 }
 
+
+# The AWS instance resource for creating the backend instance inside the private subnet within the VPC
 resource "aws_instance" "api_backend" {
-  ami = "${data.aws_ami.api-backend-image.id}"
+  ami = "${var.api-backend-ami-id}"
   availability_zone = "${var.aws_availabilty_zone}"
   instance_type = "${var.instance_type}"
   key_name = "${var.keyPairName}"
@@ -53,6 +60,8 @@ resource "aws_instance" "api_backend" {
     Name = "Backend API Instance"
   }
 }
+
+# The AWS instance resource for creating the DB instance inside the private subnet within the VPC
 
 resource "aws_instance" "db_instance" {
   ami = "${data.aws_ami.db-image.id}"
