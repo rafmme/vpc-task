@@ -31,7 +31,7 @@ function destroy() {
     cd terraform
 
     # terraform command to start the destruction
-    terraform destroy -auto-approve
+    terraform destroy -auto-approve -lock=false
     display_success_message "DONE"
 }
 

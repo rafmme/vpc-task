@@ -5,3 +5,4 @@
 *.tfstate.backup
 tfplan
 *.info
+.DS_Store

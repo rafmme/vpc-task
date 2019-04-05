@@ -62,4 +62,25 @@ variable "nat-instance-image-id" {
   default = "ami-0a4c5a6e"
 }
 
-
+variable "PORT" {}
+variable "JWT_SECRET" {}
+variable "SENDGRID_API_KEY" {}
+variable "GOOGLE_CLIENT_ID" {}
+variable "GOOGLE_CLIENT_SECRET" {}
+variable "FACEBOOK_CLIENT_ID" {}
+variable "FACEBOOK_CLIENT_SECRET" {}
+variable "LINKEDIN_CLIENT_ID" {}
+variable "LINKEDIN_CLIENT_SECRET" {}
+variable "TWITTER_CLIENT_ID" {}
+variable "TWITTER_CLIENT_SECRET" {}
+variable "SESSION_SECRET" {}
+variable "PUSHER_APP_ID" {}
+variable "PUSHER_KEY" {}
+variable "PUSHER_SECRET" {}
+variable "PUSHER_CLUSTER" {}
+variable "SUPER_ADMIN_ROLE_ID" {}
+variable "SUPER_ADMIN_FULLNAME" {}
+variable "SUPER_ADMIN_USERNAME" {}
+variable "SUPER_ADMIN_EMAIL" {}
+variable "SUPER_ADMIN_PASSWORD" {}
+variable "SUPER_ADMIN_AUTHTYPEID" {}

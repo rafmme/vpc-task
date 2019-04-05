@@ -3,6 +3,7 @@ resource "aws_security_group" "frontend-sg" {
   name        = "frontend-sg"
   description = "Security group for the Frontend Instance"
 
+  # inbound tls traffic
   ingress {
     from_port   = 443
     to_port     = 443
@@ -10,6 +11,7 @@ resource "aws_security_group" "frontend-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  # inbound http traffic
   ingress {
     from_port   = 80
     to_port     = 80
@@ -17,6 +19,7 @@ resource "aws_security_group" "frontend-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  # inbound ssh traffic
   ingress {
     from_port   = 22
     to_port     = 22
@@ -24,6 +27,7 @@ resource "aws_security_group" "frontend-sg" {
     cidr_blocks = ["${var.vpc_cidr}"]
   }
 
+  # outbound traffic
   egress {
     from_port   = 0
     to_port     = 0
@@ -52,6 +56,7 @@ resource "aws_security_group" "db-sg" {
     cidr_blocks = ["${var.vpc_cidr}"]
   }
 
+  # inbound ssh traffic
   ingress {
     from_port   = 22
     to_port     = 22
@@ -59,6 +64,8 @@ resource "aws_security_group" "db-sg" {
     cidr_blocks = ["${var.vpc_cidr}"]
   }
 
+  
+  # outbound traffic
   egress {
     from_port   = 0
     to_port     = 0
@@ -80,6 +87,7 @@ resource "aws_security_group" "bastion-nat-sg" {
   description = "Security group for the Bastion Host & NAT Instance"
 
   #PostgreSQL Server
+  # inbound traffic
   ingress {
     from_port   = 0
     to_port     = 0
@@ -87,6 +95,7 @@ resource "aws_security_group" "bastion-nat-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  # outbound traffic
   egress {
     from_port   = 0
     to_port     = 0
@@ -107,6 +116,7 @@ resource "aws_security_group" "api-backend-sg" {
   name        = "api-backend-sg"
   description = "Security group for the API Server Instance"
 
+  # inbound traffic
   ingress {
     from_port       = 0
     to_port         = 0
@@ -114,6 +124,7 @@ resource "aws_security_group" "api-backend-sg" {
     cidr_blocks = ["${var.vpc_cidr}"]
   }
 
+  # outbound traffic
   egress {
     from_port   = 0
     to_port     = 0

@@ -29,6 +29,7 @@ function build_ami_image() {
   display_message $BLUE "BUILDING IMAGES"
 
   # packer command to start the building of the AMI
+  cd packer
   packer build packer.json
 
   # conditional statement to check if the command above failed
@@ -48,12 +49,12 @@ function create_instance() {
     display_message $BLUE "CREATING EC2 INSTANCES"
 
     # this change directory to the terraform folder containing the terraform script
-    cd terraform
+    cd ../terraform
 
     # terraform commands to initialize, make a plan and then  create the EC2 instances
-    terraform init -input=false
-    terraform plan -out=tfplan -input=false
-    terraform apply -input=false tfplan
+    terraform init
+    terraform plan -out=tfplan -lock=false
+    terraform apply -auto-approve -lock=false
     display_success_message "INSTANCES CREATION DONE"
 }
 

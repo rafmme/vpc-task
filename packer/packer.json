@@ -25,11 +25,11 @@
     }],
     "provisioners": [{
             "type": "shell",
-            "script": "provision.sh"
+            "script": "../ansible/shell_script/provision.sh"
         },
         {
             "type": "ansible",
-            "playbook_file": "playbook.yml"
+            "playbook_file": "../ansible/playbook.yml"
         }
     ]
 }
